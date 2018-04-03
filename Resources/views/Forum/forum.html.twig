@@ -1,0 +1,48 @@
+{% extends "@NavalexForum/layout.html.twig" %}
+
+{% block title %}{{ forum.title ~ ' - ' ~ parent() }}{% endblock %}
+
+{% block forum_content %}
+	<h1>Welcome to NavaForum</h1>
+	<ol class="breadcrumb">
+		<li><a href="{{ path('home') }}">Forum</a></li>
+		<li><a href="{{ path('category', {'slug': forum.category.slug}) }}">{{ forum.category.title }}</a></li>
+		<li class="active">{{ forum.title }}</li>
+	</ol>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{ forum.title }} - <small>{{ forum.description }}</small></h3>
+		</div>
+
+		<table class="table table-hover forum-table">
+			<tbody>
+			{% for topic in forum.topics %}
+				<tr>
+					<td class="forum-name">
+						<b><a href="{{ path('topic', {'slug': topic.slug}) }}">{{ topic.title }}</a></b><br>
+						<i class="text-muted">{{ topic.subtitle }}</i>
+					</td>
+					<td class="forum-count">
+						<b>Answer(s)</b><br>
+						<span class="label label-primary">{{ topic.posts | length }}</span>
+					</td>
+					<td class="forum-last">
+						{% if topic.posts|length > 0 %}
+							<b>{{ topic.posts[0].author.username }}</b>
+						{% else %}
+							<b>No answer yet</b>
+						{% endif %}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td class="info">No topic yet on this forum.</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+
+		<div class="panel-footer"></div>
+	</div>
+{% endblock %}

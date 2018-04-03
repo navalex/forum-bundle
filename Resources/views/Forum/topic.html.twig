@@ -1,0 +1,68 @@
+{% extends "@NavalexForum/layout.html.twig" %}
+
+{% form_theme form "bootstrap_3_horizontal_layout.html.twig" %}
+
+{% block title %}{{ topic.title ~ ' - ' ~ parent() }}{% endblock %}
+
+{% block forum_content %}
+	<h1>Welcome to NavaForum</h1>
+	<ol class="breadcrumb">
+		<li><a href="{{ path('home') }}">Forum</a></li>
+		<li><a href="{{ path('category', {'slug': topic.forum.category.slug}) }}">{{ topic.forum.category.title }}</a></li>
+		<li><a href="{{ path('forum', {'slug': topic.forum.slug}) }}">{{ topic.forum.title }}</a></li>
+		<li class="active">{{ topic.title }}</li>
+	</ol>
+
+	<div class="well">
+		<h2 class="page-title">{{ topic.title }} <small><i>by {{ topic.author.username }}</i></small></h2>
+	</div>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<div class="row">
+				<h3 class="panel-title col-sm-3 text-center">{{ topic.author }}</h3>
+				<h3 class="panel-title col-sm-9"><i class="glyphicon glyphicon-time"></i> {{ topic.date | date("d/m/Y H:i") }}</h3>
+			</div>
+		</div>
+
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-sm-3 text-center">
+					<img class="img-responsive img-thumbnail" src="https://www.gravatar.com/avatar/{{ topic.author.email }}" alt="{{ topic.author.username }}">
+				</div>
+				<div class="col-sm-9">{{ topic.content }}</div>
+			</div>
+		</div>
+
+		<div class="panel-footer"></div>
+	</div>
+
+	{% for post in topic.posts %}
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<div class="row">
+					<h3 class="panel-title col-sm-3 text-center">{{ post.author }}</h3>
+					<h3 class="panel-title col-sm-9"><i class="glyphicon glyphicon-time"></i> {{ post.date | date("d/m/Y H:i") }}</h3>
+				</div>
+			</div>
+
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-3 text-center">
+						<img class="img-responsive img-thumbnail" src="https://www.gravatar.com/avatar/{{ post.author.email }}" alt="{{ post.author.username }}">
+					</div>
+					<div class="col-sm-9">{{ post.content }}</div>
+				</div>
+			</div>
+
+			<div class="panel-footer"></div>
+		</div>
+	{% endfor %}
+
+	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+		<div class="well">
+			{{ form(form) }}
+		</div>
+	{% endif %}
+{% endblock %}
+

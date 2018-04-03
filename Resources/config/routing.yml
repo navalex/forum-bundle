@@ -1,0 +1,20 @@
+
+home:
+    path:     /
+    defaults: { _controller: NavalexForumBundle:Forum:home }
+
+category:
+    path:     /cat/{slug}
+    defaults: { _controller: NavalexForumBundle:Forum:category }
+
+forum:
+    path:     /forum/{slug}
+    defaults: { _controller: NavalexForumBundle:Forum:forum }
+
+topic:
+    path:     /topic/{slug}
+    defaults: { _controller: NavalexForumBundle:Forum:topic }
+
+add_topic:
+    path:     /topic/new/{forum_slug}
+    defaults: { _controller: NavalexForumBundle:Forum:addTopic }

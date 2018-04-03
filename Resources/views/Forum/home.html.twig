@@ -1,0 +1,15 @@
+{% extends "@NavalexForum/layout.html.twig" %}
+
+{% block title %}{{ 'Home - ' ~ parent() }}{% endblock %}
+
+{% block forum_content %}
+	<h1>Welcome to NavaForum</h1>
+
+	<ol class="breadcrumb">
+		<li class="active">Forum</li>
+	</ol>
+
+	{% for category in list %}
+		{{ include('@NavalexForum/Samples/category_display.html.twig') }}
+	{% endfor %}
+{% endblock %}

@@ -1,0 +1,38 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title"><a href="{{ path('category', {'slug': category.slug}) }}">{{ category.title }}</a> - <small>{{ category.description }}</small></h3>
+	</div>
+
+	<table class="table table-hover forum-table">
+		<tbody>
+		{% for forum in category.forums %}
+			<tr>
+				<td class="forum-name">
+					<b><a href="{{ path('forum', {'slug': forum.slug}) }}">{{ forum.title }}</a></b><br>
+					<i class="text-muted">{{ forum.description }}</i>
+				</td>
+				<td class="forum-count">
+					<b>Topics</b><br>
+					<span class="label label-primary">{{ forum.topics | length }}</span>
+				</td>
+				<td class="forum-last">
+					{% if forum.topics|length > 0 %}
+						<b><a href="{{ path('topic', {'slug': forum.topics[0].slug}) }}">{{ forum.topics[0].title }}</a> </b>
+						<i>By <b>{{ forum.topics[0].author.username }}</b></i>
+						<br>
+						<i>{{ forum.topics[0].date| date("d/m/Y H:i") }}</i>
+					{% else %}
+						<b>No topic yet</b>
+					{% endif %}
+				</td>
+			</tr>
+		{% else %}
+			<tr>
+				<td class="info">No forum yet on this category.</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
+	<div class="panel-footer"></div>
+</div>

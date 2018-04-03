@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ 'Forum | ' ~ parent() }}{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		.forum-table td {
+			vertical-align: middle !important;
+		}
+		.forum-table .forum-count {
+			width: 60px;
+			text-align: center;
+		}
+		.forum-table .forum-last {
+			width: 160px;
+			text-align: center;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{% block forum_content %}
+		{% endblock%}
+	</div>
+{% endblock %}
